@@ -4,7 +4,7 @@ const $randomButton = document.querySelector('.button');
 const player1 = {
     player: 1,
     name: 'Scorpion',
-    hp: 20,
+    hp: 100,
     img: 'assets/characters/scorpion.gif',
     weapon: ['Shotgun', 'Chainsaw'],
     attack: function() {
@@ -15,7 +15,7 @@ const player1 = {
 const player2 = {
     player: 2,
     name: 'Kitana',
-    hp: 20,
+    hp: 100,
     img: 'assets/characters/kitana.gif',
     weapon: ['Fan', 'Spoon'],
     attack: function() {
