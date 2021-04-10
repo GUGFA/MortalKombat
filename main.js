@@ -1,6 +1,7 @@
 const $arenas = document.querySelector('.arenas');
 
-const Player1 = {
+const player1 = {
+    player: 1,
     name: 'Scorpion',
     hp: 100,
     img: 'assets/characters/scorpion.gif',
@@ -10,7 +11,8 @@ const Player1 = {
     }
 };
 
-const Player2 = {
+const player2 = {
+    player: 2,
     name: 'Kitana',
     hp: 100,
     img: 'assets/characters/kitana.gif',
@@ -20,29 +22,36 @@ const Player2 = {
     }
 };
 
+function createElement(tag, className) {
+    const $tag = document.createElement(tag);
 
-function createPlayer(PlayerClass, Player) {
-    $player = document.createElement('div');
-    $progressBar = document.createElement('div');
-    $character = document.createElement('div');
-    $img = document.createElement('img');
-    $life = document.createElement('div');
-    $name = document.createElement('div');
-    $player.classList.add(PlayerClass);
-    $progressBar.classList.add('progressbar');
-    $character.classList.add('character');
-    $img.src = Player.img;
-    $life.classList.add('life');
-    $life.style.width = (Player.hp +'%');
-    $name.classList.add('name');
-    $name.innerText = Player.name;
-    $arenas.appendChild($player);
+    if (className) { 
+        $tag.classList.add(className); 
+    }
+
+    return $tag;
+}
+
+function createPlayer(playerObj) {
+    const $player = createElement('div', 'player'+playerObj.player);
+    const $progressBar = createElement('div', 'progressbar');
+    const $character = createElement('div', 'character');
+    const $life = createElement('div', 'life');
+    const $name = createElement('div', 'name');
+    const $img = createElement('img');
+
+    $life.style.width = (playerObj.hp +'%');
+    $name.innerText = playerObj.name;
+    $img.src = playerObj.img;
+    
     $player.appendChild($progressBar);
     $player.appendChild($character);
     $progressBar.appendChild($life);
     $progressBar.appendChild($name);
     $character.appendChild($img);
+
+    return $player;
 }
 
-createPlayer('player1', Player1);
-createPlayer('player2', Player2);
+$arenas.appendChild(createPlayer(player1));
+$arenas.appendChild(createPlayer(player2));
