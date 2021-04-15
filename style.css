@@ -257,6 +257,7 @@ body {
 }
 
 .button:disabled {
+    background-color: #74736f;
     opacity: .9;
     cursor: not-allowed;
 }

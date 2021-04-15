@@ -1,6 +1,7 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
 const $formFight = document.querySelector('.control');
+const $radioButton = document.getElementsByClassName("radiobutton");
 const attack = {};
 const HIT = {
     head: 30,
@@ -121,9 +122,6 @@ $arenas.appendChild(createPlayer(player2));
 function enemyAttack() {
     const hit = ATTACK[randomizer(0,2)];
     const defence = ATTACK[randomizer(0,2)];
-   // console.log('### enemy hit:',hit);
-   // console.log('### enemy defence:', defence);
-    //console.log(randomizer(0,HIT[hit]));
     return {
         value: randomizer(1,HIT[hit]),
         hit,
@@ -146,6 +144,7 @@ $formFight.addEventListener('submit', function(e) {
             }
             item.checked = false;
         }
+
         console.log('#### player:', attack);
         console.log('#### enemy:', enemy);
 
@@ -159,8 +158,6 @@ $formFight.addEventListener('submit', function(e) {
             enemy.value = 0;
         }
 
-       // else {
-
         player1.changeHP(enemy.value);
         console.log('Player1 HP:',player1.hp);
         player1.renderHP();
@@ -168,12 +165,13 @@ $formFight.addEventListener('submit', function(e) {
         player2.changeHP(attack.value);
         console.log('Player2 HP:',player2.hp);
         player2.renderHP();
-       // }
 
-        if (player1.hp === 0 || player2.hp === 0) {
-                    $randomButton.disabled = true;
-                   // document.getElementById("headHit").disabled = false;  хуй?
-                    createReloadButton();
+        if (player1.hp === 0 || player2.hp === 0) {              
+                 for (i = 0; i < $radioButton.length; i++) {
+                    $radioButton[i].setAttribute("disabled", "disabled"); 
+                    }
+                $randomButton.disabled = true;
+                createReloadButton();
                 }
             
                 if (player1.hp === 0 && player1.hp < player2.hp) {
