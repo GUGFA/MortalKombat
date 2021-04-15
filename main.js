@@ -1,5 +1,14 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
+const $formFight = document.querySelector('.control');
+const attack = {};
+const HIT = {
+    head: 30,
+    body: 25,
+    foot: 20
+};
+
+const ATTACK = ['head', 'body', 'foot'];
 
 const player1 = {
     player: 1,
@@ -10,11 +19,9 @@ const player1 = {
     attack: function () {
         console.log(this.name + ' ' + 'Fight...');
     },
-    changeHP: changeHP,
-    elHP: elHP,
-    renderHP: renderHP,
-    playerHit: playerHit,
-
+    changeHP,
+    elHP,
+    renderHP
 };
 
 const player2 = {
@@ -26,10 +33,9 @@ const player2 = {
     attack: function () {
         console.log(this.name + ' ' + 'Fight...');
     },
-    changeHP: changeHP,
-    elHP: elHP,
-    renderHP: renderHP,
-    playerHit: playerHit
+    changeHP,
+    elHP,
+    renderHP
 };
 
 function createElement(tag, className) {
@@ -79,26 +85,6 @@ function renderHP() {
     this.elHP().style.width = this.hp + '%';
 }
 
-function playerHit() {
-    let z = document.querySelector('.character' + ' .img');
-    return z;
-    
-    
-}
-
-function myFunc () {
-    let $ermac = document.querySelector('img');
-   $ermac.src = 'assets/characters/ermac-roundhouse.gif';
-  }
-
-  function Scorp () {
-        setTimeout(function(){ 
-         let $scorp = document.querySelector('img');
-         $scorp.src = 'assets/characters/scorpion.gif'; 
-        }, 1000);
-    
-    }
-
 function playerWin(name) {
     const $winTitle = createElement('div', 'loseTitle');
 
@@ -119,44 +105,83 @@ function createReloadButton() {
     });
 
     const $restartDiv = createElement('div', 'reloadWrap');
-    $arenas.appendChild($restartDiv);
     $restartDiv.appendChild($restartBtn);
+    $arenas.appendChild($restartDiv);
 
+    return $restartDiv;
 }
 
 function randomizer(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-$randomButton.addEventListener('click', function () {
-    player1.changeHP(randomizer(1, 20));
-    player1.renderHP();
-    player1.playerHit();
-    myFunc();
-    Scorp();    // setTimeout(function(){
-    //     let $scorp = document.querySelector('img');
-    //    $scorp.src = 'assets/characters/scorpion.gif';
-    //   }, 1000);
-      // setTimeout(Scorp(), 1000); - хз почему не работает так?
-
-
-    player2.changeHP(randomizer(1, 20));
-    player2.renderHP();
-    player2.playerHit();
-
-    if (player1.hp === 0 || player2.hp === 0) {
-        $randomButton.disabled = true;
-        $arenas.appendChild(createReloadButton());
-    }
-
-    if (player1.hp === 0 && player1.hp < player2.hp) {
-        $arenas.appendChild(playerWin(player2.name));
-    } else if (player2.hp === 0 && player2.hp < player1.hp) {
-        $arenas.appendChild(playerWin(player1.name));
-    } else if (player1.hp === 0 && player2.hp === 0) {
-        $arenas.appendChild(playerWin());
-    }
-})
-
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
+
+function enemyAttack() {
+    const hit = ATTACK[randomizer(0,2)];
+    const defence = ATTACK[randomizer(0,2)];
+   // console.log('### enemy hit:',hit);
+   // console.log('### enemy defence:', defence);
+    //console.log(randomizer(0,HIT[hit]));
+    return {
+        value: randomizer(1,HIT[hit]),
+        hit,
+        defence
+    }
+}
+
+$formFight.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const enemy = enemyAttack();
+
+        for (let item of $formFight) {
+            if (item.checked && item.name === 'hit') {
+                console.log(item.value);
+                attack.value = randomizer(1,HIT[item.value]);
+                attack.hit = item.value;
+            }
+            if (item.checked && item.name === 'defence') {
+                attack.defence = item.value;
+            }
+            item.checked = false;
+        }
+        console.log('#### player:', attack);
+        console.log('#### enemy:', enemy);
+
+        if (attack.hit === enemy.defence) {
+            console.log('enemy bloked your hit');
+            attack.value = 0;
+        }
+        
+        if (enemy.hit === attack.defence) {
+            console.log('you bloked enemy hit');
+            enemy.value = 0;
+        }
+
+       // else {
+
+        player1.changeHP(enemy.value);
+        console.log('Player1 HP:',player1.hp);
+        player1.renderHP();
+
+        player2.changeHP(attack.value);
+        console.log('Player2 HP:',player2.hp);
+        player2.renderHP();
+       // }
+
+        if (player1.hp === 0 || player2.hp === 0) {
+                    $randomButton.disabled = true;
+                   // document.getElementById("headHit").disabled = false;  хуй?
+                    createReloadButton();
+                }
+            
+                if (player1.hp === 0 && player1.hp < player2.hp) {
+                    $arenas.appendChild(playerWin(player2.name));
+                } else if (player2.hp === 0 && player2.hp < player1.hp) {
+                    $arenas.appendChild(playerWin(player1.name));
+                } else if (player1.hp === 0 && player2.hp === 0) {
+                    $arenas.appendChild(playerWin());
+                }
+    }
+);
