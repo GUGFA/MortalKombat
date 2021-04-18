@@ -217,7 +217,7 @@ function generateLogs(type, winner, looser) {
            break;
 
         case 'end':
-            text += [randomizer(0, logs[type].length-1)].replace('[playerWins]', winner.name).replace('[playerLose]', looser.name);
+            text = text[randomizer(0, logs[type].length-1)].replace('[playerWins]', winner.name).replace('[playerLose]', looser.name);
             break;
 
         case 'draw':
@@ -226,13 +226,13 @@ function generateLogs(type, winner, looser) {
             break;
 
         case 'hit':
-            console.log(text);
-            text += [randomizer(0, text.length-1)].replace('[playerKick]', winner.name).replace('[playerDefence]', looser.name);
+           // console.log(text);
+            text = text[randomizer(0, text.length-1)].replace('[playerKick]', winner.name).replace('[playerDefence]', looser.name);
           //  $chat.insertAdjacentHTML('afterbegin', el);
             break;
 
         case 'defence':
-            text += [randomizer(0, text.length-1)].replace('[playerKick]', winner.name).replace('[playerDefence]', looser.name);
+            text = text[randomizer(0, text.length-1)].replace('[playerKick]', winner.name).replace('[playerDefence]', looser.name);
           //  $chat.insertAdjacentHTML('afterbegin', el);
             break;
     }
