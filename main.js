@@ -197,7 +197,7 @@ $formFight.addEventListener('submit', function (e) {
 
     }
 
-    else  if (enemy.hit === player.defence) {
+    if (enemy.hit === player.defence) {
         generateLogs('defence', player2, player1);
 
 
@@ -219,10 +219,6 @@ function generateLogs(type, player1, player2, damage = 0) {
             text = text[randomizer(0, logs[type].length-1)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
             break;
 
-        case 'draw':
-            text;
-            break;
-
         case 'hit':
             text = text[randomizer(0, text.length-1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
             break;
@@ -232,9 +228,8 @@ function generateLogs(type, player1, player2, damage = 0) {
             break;
     }
     if (type === 'hit' || type === 'defence') {
-        console.log('@@@damage',damage);
         const color = damage === 0 ? 'green':'red';
-        el = `<p>${date()} ${text} <span style="color:${color}"> -${damage} </span> ${[player2.hp]}/100</p>`;
+        el = `<p>${date()} ${text} <span style="color:${color}"> -${damage} </span>  ${[player2.hp]}/100</p>`;
     }
     else {
         el = `<p>${text}</p>`;
