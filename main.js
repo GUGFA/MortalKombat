@@ -182,13 +182,13 @@ $formFight.addEventListener('submit', function (e) {
     if (player.defence !== enemy.hit) {
         player1.changeHP(enemy.value);
         player1.renderHP();
-        generateLogs('hit', player2, player1);
+        generateLogs('hit', player2, player1, enemy.value);
     }
 
     if (enemy.defence !== player.hit) {
         player2.changeHP(player.value);
         player2.renderHP();
-        generateLogs('hit', player1, player2);
+        generateLogs('hit', player1, player2, player.value);
 
     }
 
@@ -207,7 +207,7 @@ $formFight.addEventListener('submit', function (e) {
     showResult();
 });
 
-function generateLogs(type, player1, player2) {
+function generateLogs(type, player1, player2, damage = 0) {
     let text = logs[type];
     let el = '';
     switch (type) {
@@ -232,8 +232,9 @@ function generateLogs(type, player1, player2) {
             break;
     }
     if (type === 'hit' || type === 'defence') {
-        console.log(attack);
-        el = `<p>${date()} ${text} ${[player2.hp]}</p>`;
+        console.log('@@@damage',damage);
+        const color = damage === 0 ? 'green':'red';
+        el = `<p>${date()} ${text} <span style="color:${color}"> -${damage} </span> ${[player2.hp]}/100</p>`;
     }
     else {
         el = `<p>${text}</p>`;
