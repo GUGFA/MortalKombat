@@ -207,36 +207,37 @@ $formFight.addEventListener('submit', function (e) {
     showResult();
 });
 
-function generateLogs(type, winner, looser) {
+function generateLogs(type, player1, player2) {
     let text = logs[type];
     let el = '';
     switch (type) {
         case 'start':
-            console.log(text);
-            text = text.replace('[player1]', winner.name).replace('[player2]', looser.name).replace('[time]', `${date()}`);
+            text = text.replace('[player1]', player1.name).replace('[player2]', player2.name).replace('[time]', `${date()}`);
            break;
 
         case 'end':
-            text = text[randomizer(0, logs[type].length-1)].replace('[playerWins]', winner.name).replace('[playerLose]', looser.name);
+            text = text[randomizer(0, logs[type].length-1)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
             break;
 
         case 'draw':
             text;
-          //  $chat.insertAdjacentHTML('afterbegin', el);
             break;
 
         case 'hit':
-           // console.log(text);
-            text = text[randomizer(0, text.length-1)].replace('[playerKick]', winner.name).replace('[playerDefence]', looser.name);
-          //  $chat.insertAdjacentHTML('afterbegin', el);
+            text = text[randomizer(0, text.length-1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
             break;
 
         case 'defence':
-            text = text[randomizer(0, text.length-1)].replace('[playerKick]', winner.name).replace('[playerDefence]', looser.name);
-          //  $chat.insertAdjacentHTML('afterbegin', el);
+            text = text[randomizer(0, text.length-1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
             break;
     }
-    el = `<p>${date()} ${text} ${[looser.hp]}</p>`;
+    if (type === 'hit' || type === 'defence') {
+        console.log(attack);
+        el = `<p>${date()} ${text} ${[player2.hp]}</p>`;
+    }
+    else {
+        el = `<p>${text}</p>`;
+    }
             $chat.insertAdjacentHTML('afterbegin', el);
 }
 
