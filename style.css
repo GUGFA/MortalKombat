@@ -176,6 +176,12 @@ body {
     background-size: cover;
     background-position: center;
     border-top: 4px solid #f5d100;
+    margin: auto;
+    overflow: auto;
+    padding: 24px;
+    opacity: 100%;
+    text-align: center;
+    color: rgb(255, 255, 255);
 }
 
 .character {
