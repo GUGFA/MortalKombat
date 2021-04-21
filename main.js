@@ -15,6 +15,7 @@ export const ATTACK = ['head', 'body', 'foot'];
 
 $formFight.addEventListener('submit', function (e) {
     e.preventDefault();
+    document.getElementById("mortalkombat").play();
     const enemy = enemyAttack();
     const player = playerAttack();
 
