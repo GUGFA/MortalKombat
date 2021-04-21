@@ -12,7 +12,6 @@ export const HIT = {
     body: 25,
     foot: 20};
 export const ATTACK = ['head', 'body', 'foot'];
-export const $femaleCharacters = ['Sonya', 'Kitana', 'Jade', 'Mileena', 'Khameleon', 'Sheeva', 'Sindel'];
 
 $formFight.addEventListener('submit', function (e) {
     e.preventDefault();
