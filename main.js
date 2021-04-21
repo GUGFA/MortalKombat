@@ -25,6 +25,7 @@ const player1 = {
     renderHP
 };
 
+
 const player2 = {
     player: 2,
     name: 'Kitana',
@@ -39,15 +40,11 @@ const player2 = {
     renderHP
 };
 
-function createElement(tag, className) {
+createElement = (tag, className) => {
     const $tag = document.createElement(tag);
-
-    if (className) {
-        $tag.classList.add(className);
-    }
-
+    (className) ? $tag.classList.add(className) : null
     return $tag;
-}
+};
 
 function createPlayer(playerObj) {
     const $player = createElement('div', 'player' + playerObj.player);
@@ -55,7 +52,7 @@ function createPlayer(playerObj) {
     const $character = createElement('div', 'character');
     const $life = createElement('div', 'life');
     const $name = createElement('div', 'name');
-    const $img = createElement('img', 'spriteset');
+    const $img = createElement('img');
 
     $life.style.width = (playerObj.hp + '%');
     $name.innerText = playerObj.name;
@@ -86,38 +83,29 @@ function renderHP() {
     this.elHP().style.width = this.hp + '%';
 }
 
-function playerWin(name) {
+playerWin = (name) => {
     const $winTitle = createElement('div', 'loseTitle');
-
-    if (name) {
-        $winTitle.innerText = name + ' WINS';
-    } else {
-        $winTitle.innerText = 'DRAW';
-    }
-
+    (name) ? $winTitle.innerText = name + ' WINS' : $winTitle.innerText = 'DRAW';
     return $winTitle;
-}
+};
 
-function createReloadButton() {
+createReloadButton = () => {
     const $restartBtn = createElement('button', 'button');
+    const $restartDiv = createElement('div', 'reloadWrap');
     $restartBtn.innerText = 'Restart';
     $restartBtn.addEventListener('click', function () {
         window.location.reload();
     });
-
-    const $restartDiv = createElement('div', 'reloadWrap');
     $restartDiv.appendChild($restartBtn);
     $arenas.appendChild($restartDiv);
 
     return $restartDiv;
 }
 
-function randomizer(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+randomizer = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 
-function enemyAttack() {
+enemyAttack = () => {
     const hit = ATTACK[randomizer(0, 2)];
     const defence = ATTACK[randomizer(0, 2)];
     return {
@@ -152,7 +140,6 @@ function showResult() {
         $randomButton.disabled = true;
         createReloadButton();
     }
-
     if (player1.hp === 0 && player1.hp < player2.hp) {
         $arenas.appendChild(playerWin(player2.name));
         generateLogs('end', player2, player1);
@@ -166,11 +153,13 @@ function showResult() {
 
 }
 
-function date() {
+date = () => {
     const date = new Date();
-    const currentTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    const hours = date.getHours() < 10 ? '0'+date.getHours() : 
+    const minutes = date.getMinutes() < 10 ? '0'+date.minutes() : 
+    const currentTime =  hours + ':' + minutes + ':' + date.getSeconds();
     return currentTime;
-}
+};
 
 $formFight.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -183,26 +172,21 @@ $formFight.addEventListener('submit', function (e) {
         player1.renderHP();
         generateLogs('hit', player2, player1, enemy.value);
     }
-
     if (enemy.defence !== player.hit) {
         player2.changeHP(player.value);
         player2.renderHP();
         generateLogs('hit', player1, player2, player.value);
 
     }
-
     if (player.hit === enemy.defence) {
         generateLogs('defence', player1, player2);
 
     }
-
     if (enemy.hit === player.defence) {
         generateLogs('defence', player2, player1);
 
 
     }
-
-
     showResult();
 });
 
@@ -212,30 +196,28 @@ function generateLogs(type, player1, player2, damage = 0) {
     console.log(text);
     switch (type) {
         case 'start':
+            console.log('#### start')
             text = text.replace('[player1]', player1.name).replace('[player2]', player2.name).replace('[time]', `${date()}`).replace(' ', ' ').replace(' ', ' ');
+            el = `<p>${text}</p>`;
            break;
 
         case 'end':
             text = text[randomizer(0, logs[type].length-1)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
+            el = `<p>${text}</p>`;
             break;
 
         case 'hit':
-            text = text[randomizer(0, text.length-1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-            break;
-
         case 'defence':
             text = text[randomizer(0, text.length-1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+            const color = damage === 0 ? 'green':'red';
+            el = `<p>${date()} ${text} <span style="color:${color}"> -${damage} </span>  ${[player2.hp]}/100</p>`;
             break;
+
+        // default:
+        //         el = `<p>${text}</p>`;
+
     }
-    if (type === 'hit' || type === 'defence') {
-        const color = damage === 0 ? 'green':'red';
-        const figa = 'фигу с маслом';
-        el = `<p>${date()} ${text} <span style="color:${color}"> -${damage} </span>  ${[player2.hp]}/100</p>`;
-    }
-    else {
-        el = `<p>${text}</p>`;
-    }
-            $chat.insertAdjacentHTML('afterbegin', el);
+  $chat.insertAdjacentHTML('afterbegin', el);
 }
 
 const logs = {
@@ -286,42 +268,29 @@ generateLogs('start', player1, player2);
 
 function genderCheck(player, text) {
     if (femaleCharacters.indexOf(player.name) >=0) {
-        if (text.slice(-2) === 'ся') {
-            text = text.replace('ся', 'ась');
-            console.log('### СЯ' + text);
-        }
-        else if (text.slice(-2) === 'ал') {
-            text = text.replace('ал', 'ала');
-            console.log('### АЛ');
-        }
-         else if (text.slice(-2) === 'ил') {
-             text = text.replace('ил', 'ила');
-             console.log('### ИЛ');
-         }
-         else if (text.slice(-2) === 'ул') {
-            text = text.replace('ул', 'ула');
-            console.log('### ИЛ');
-        }
-        else if (text.slice(-3) === 'шел') {
-            text = text.replace('шел', 'шла');
-            console.log('### ЕЛ');
-        }
-        else if (text.slice(-2) === 'иб') {
-            text = text.replace('иб', 'ибла');
-            console.log('### ЕЛ');
-        }
-        else {
-            text = text.replace('л', 'ла');
-            console.log('### аллл');
+        switch (text) {
+            case text.slice(-2) === 'ся':
+                text = text.replace('ся', 'ась');
+                break;
+            case text.slice(-2) === 'ал':
+                text = text.replace('ал', 'ала');
+                break;
+            case text.slice(-2) === 'ил':
+                text = text.replace('ил', 'ила');
+                break;
+            case text.slice(-2) === 'ул':
+                text = text.replace('ул', 'ула');
+                break;
+            case text.slice(-3) === 'шел':
+                text = text.replace('шел', 'шла');
+                break;
+            case text.slice(-2) === 'иб':
+                text = text.replace('иб', 'ибла');
+                break;
+            default:
+                text = text.replace('л', 'ла');
+                break;
         }
     }
       return text;
 }
-
-
-const playerDefence = ['пытался', 'расстроился', 'зажмурился', 'чесал', 'задумался', 'ковырялся', 'вспомнил', 
-'осмотрелся', 'кашлянул', 'забылся', 'поперхнулся', 'пришел', 'пошатнулся', 'отпрыгнул', 'поставил', 'ушел',
-'блокировал'];
-
-const playerKick = ['раздробил', 'размозжил', 'влепил', 'вломил', 'провел', 'потерял', 'контролировал', 
-'поскользнулся', 'старался', 'обманулся', 'думал'];
