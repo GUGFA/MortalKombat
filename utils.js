@@ -17,3 +17,9 @@ export function date() {
     const currentTime =  `${hours}:${minutes}:${secundes}`;
     return currentTime;
 };
+
+export function playSound(sfxName) {
+    const soundFX = document.getElementById("soundFX");
+    soundFX.src = `/assets/sounds/${sfxName}.mp3`;
+    soundFX.play();
+}

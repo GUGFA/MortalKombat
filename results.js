@@ -1,19 +1,36 @@
-import {createElement} from './creators.js';
+import {createElement, createPlayer, showBanner} from './creators.js';
 import {player1, player2} from './characters.js';
-import {$arenas} from './main.js';
+import {$arenas, $formFight, $gameStart} from './main.js';
 import {generateLogs}from './battleLogs.js';
+import {playSound} from './utils.js';
 
 const $radioButton = document.getElementsByClassName('radiobutton');
 const $randomButton = document.querySelector('.button');
 
 
+export function gameStart() {
+    $gameStart.addEventListener('click', function () {
+    setTimeout(() => $formFight.style.display = 'flex', 1500);
+    $arenas.removeChild($gameStart);
+    setTimeout(() => document.getElementById("mortalkombat").play(), 1500);
+    setTimeout(playSound.bind(null, 'Fight'), 500);
+    setTimeout(showBanner, 600);
+    
+    $arenas.appendChild(createPlayer(player1));
+    $arenas.appendChild(createPlayer(player2));
+    generateLogs('start', player1, player2);
+});
+}
+
 let createReloadButton = () => {
     const $restartBtn = createElement('button', 'button');
     const $restartDiv = createElement('div', 'reloadWrap');
+    document.getElementById("mortalkombat").pause();
     $restartBtn.innerText = 'Restart';
     $restartBtn.addEventListener('click', function () {
         window.location.reload();
     });
+    $formFight.style.display = 'none';
     $restartDiv.appendChild($restartBtn);
     $arenas.appendChild($restartDiv);
 
@@ -23,6 +40,9 @@ let createReloadButton = () => {
 export let playerWin = (name) => {
     const $winTitle = createElement('div', 'loseTitle');
     (name) ? $winTitle.innerText = name + ' WINS' : $winTitle.innerText = 'DRAW';
+    console.log($winTitle.innerText);
+    //console.log(name);
+    setTimeout(playSound.bind(null, `${$winTitle.innerText}`), 100);
     return $winTitle;
 };
 

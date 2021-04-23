@@ -409,3 +409,15 @@ input[type=radio]:checked + label > span::before {
 input[type=radio]:checked + label > span:hover {
     background: none;
 }
+
+.start {
+    margin: auto;
+    margin-top: 100px;
+}
+
+.banner {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

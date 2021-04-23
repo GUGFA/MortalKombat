@@ -11,6 +11,7 @@ export function createPlayer(playerObj) {
     const $life = createElement('div', 'life');
     const $name = createElement('div', 'name');
     const $img = createElement('img');
+    
 
     $life.style.width = (playerObj.hp + '%');
     $name.innerText = playerObj.name;
@@ -23,4 +24,16 @@ export function createPlayer(playerObj) {
     $character.appendChild($img);
 
     return $player;
+}
+
+export function showBanner(imageSource = "/assets/LetsKeep.png") {
+    const $banner = createElement('div', 'banner');
+    const $img = createElement('img');
+    const $arenas = document.querySelector('.arenas');
+
+    $img.src = imageSource;
+    $banner.appendChild($img);
+    $arenas.appendChild($banner);
+
+    setTimeout(function(){$banner.style.display = 'none';}, 1000);
 }
