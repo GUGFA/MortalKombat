@@ -1,5 +1,5 @@
 import {createElement, createPlayer, showBanner} from './creators.js';
-import {player1, player2} from './characters.js';
+import {player1, player2} from './playerclass.js';
 import {$arenas, $formFight, $gameStart} from './main.js';
 import {generateLogs}from './battleLogs.js';
 import {playSound} from './utils.js';

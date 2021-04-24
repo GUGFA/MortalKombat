@@ -1,6 +1,6 @@
 import {$chat} from './main.js';
 import {date, randomizer} from './utils.js';
-import {player1, player2} from './characters.js';
+import {player1, player2} from './playerclass.js';
 
 const $femaleCharacters = ['Sonya', 'Kitana', 'Jade', 'Mileena', 'Khameleon', 'Sheeva', 'Sindel'];
 
