@@ -1,4 +1,4 @@
-import {player1, player2} from './characters.js';
+import {player1, player2} from './playerclass.js';
 import {playerAttack, enemyAttack} from './attacks.js';
 import {generateLogs}from './battleLogs.js';
 import {showResult, gameStart} from './results.js';
