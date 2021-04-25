@@ -1,6 +1,5 @@
 class Player {
     constructor(props) {
-        console.log('## Props:', props);
         this.player = props.player;
         this.name = props.name;
         this.hp = props.hp;
@@ -16,19 +15,19 @@ class Player {
         }
     };
     renderHP = () => this.elHP().style.width = this.hp + '%';
-    attack = ()  => console.log(this.name + ' ' + 'Fight...');
+    attack = () => console.log(this.name + ' ' + 'Fight...');
 }
 
 export const player1 = new Player({
     player: 1,
     name: 'Scorpion',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',  
+    hp: 10,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
 })
 
 export const player2 = new Player({
     player: 2,
     name: 'Kitana',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',  
+    hp: 10,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
 })
