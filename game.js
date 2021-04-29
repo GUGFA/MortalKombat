@@ -2,8 +2,23 @@ import {
     player1,
     player2
 } from './playerclass.js';
+
+class Attacks {
+    constructor(props) {
+        this.value = props.value;
+        this.hit = props.hit;
+        this.defence = props.defence;
+    }
+}
+
+let enemyAttack;
+let playerAttack;
+let enemyAttack2;
+let playerAttack2;
+
 export default class Game {
     constructor(props) {}
+
 
     static $arenas = document.querySelector('.arenas');
     static $formFight = document.querySelector('.control');
@@ -17,12 +32,23 @@ export default class Game {
     static ATTACK = ['head', 'body', 'foot']
     static $radioButton = document.getElementsByClassName('radiobutton');
     static $randomButton = document.querySelector('.button');
-
+    
+    playerAttack2 = new Attacks({
+        value: 2,
+        hit: 'head',
+        defence: 'foot',
+    });
+    
     static eventListener = () => {
         Game.$formFight.addEventListener('submit', function (e) {
             e.preventDefault();
-            const enemy = Game.enemyAttack();
-            const player = Game.playerAttack();
+            console.log('game###', Game.getAttacks());
+            console.log(enemyAttack2);
+            console.log(playerAttack2);
+            const enemy = enemyAttack;
+            const player = playerAttack;
+            console.log('### Enemy:', enemy);
+            console.log('$$$ Player:', player);
 
 
             if (player.defence !== enemy.hit) {
@@ -134,34 +160,68 @@ export default class Game {
     }
 
 
-    static enemyAttack = () => {
-        const hit = Game.ATTACK[Game.randomizer(0, 2)];
-        const defence = Game.ATTACK[Game.randomizer(0, 2)];
-        return {
-            value: Game.randomizer(1, Game.HIT[hit]),
-            hit,
-            defence
-        }
-    }
+    // static enemyAttack = () => {
+    //     const hit = Game.ATTACK[Game.randomizer(0, 2)];
+    //     const defence = Game.ATTACK[Game.randomizer(0, 2)];
+    //     return {
+    //         value: Game.randomizer(1, Game.HIT[hit]),
+    //         hit,
+    //         defence
+    //     }
+    // }
 
-    static playerAttack = () => {
-        const attack = {};
+    static getAttacks = async () => {
+        let submit = {};
+        // let enemyAttack;
+        // let playerAttack;
 
         for (let item of Game.$formFight) {
             if (item.checked && item.name === 'hit') {
-                attack.value = Game.randomizer(1, Game.HIT[item.value]);
-                attack.hit = item.value;
+                submit.value = Game.randomizer(1, Game.HIT[item.value]);
+                submit.hit = item.value;
             }
             if (item.checked && item.name === 'defence') {
-                attack.defence = item.value;
+                submit.defence = item.value;
             }
             item.checked = false;
         }
+        console.log(submit);
+         const getHits = async () => {
+            const answer = fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
+                method: 'POST',
+                body: JSON.stringify(submit)
+            }).then(res => res.json());
 
-        return attack;
+                    return answer;
+               
+        }
+
+         const setValues = async () => {
+            const players = await getHits();
+              const p1 = players.player1;
+              const p2 = players.player2;
+              console.log('p1',p1)
+             playerAttack2 = new Attacks({
+                  value: 2,
+                  hit: 'head',
+                  defence: 'foot',
+              });
+              enemyAttack2 = new Attacks({
+                  ...p2,
+               });
+               console.log(p1);
+console.log('SetValues players:',players);
+                   return players;
+        }
+       let temp = await setValues();
+       console.log('######temp',temp);
+       console.log(enemyAttack);
+       enemyAttack = temp;
+       console.log(enemyAttack);
+        // console.log(this.setValues());
+
+         return temp
     }
-
-
 
     static randomizer = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -300,3 +360,5 @@ export default class Game {
         Game.$chat.insertAdjacentHTML('afterbegin', el);
     }
 }
+
+
