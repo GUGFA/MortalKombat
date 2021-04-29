@@ -28,7 +28,7 @@ class Game {
     }
 
     start = async () => {
-        const pla1 = await this.getPlayers();
+        const pla1 = JSON.parse(localStorage.getItem('player1'));
         const pla2 = await this.getPlayers();
         const p1 = pla1;
         const p2 = pla2;

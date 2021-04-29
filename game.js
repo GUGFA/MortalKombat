@@ -100,7 +100,8 @@ export default class Game {
         document.getElementById("mortalkombat").pause();
         $restartBtn.innerText = 'Restart';
         $restartBtn.addEventListener('click', function () {
-            window.location.reload();
+            //window.location.reload();
+            window.location.pathname = 'index.html';
         });
         Game.$formFight.style.display = 'none';
         $restartDiv.appendChild($restartBtn);
