@@ -5,55 +5,24 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Parallax BG</title>
-    <link rel="stylesheet" href="style.css">
-
-  </script>  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-  <script src="./parallax.js"></script>
-  <script>
-  jQuery(document).ready(function(){
-    jQuery('#parallax .parallax-layer')
-    .parallax({
-      mouseport: jQuery('#parallax'),
-      yparallax: false,
-
-    });
-  });
-  </script>
-
+    <link rel="icon" type="image/gif" href="/assets/favicon.png">
+    <title>MK - JSMarathon - Start</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-
-  <div class="root">
-    <class class="arenas arena1" id="parallax">
-      <div class="parallax-viewport" id="parallax" style="width:940px; background: #000 url(/images/p_bg_2x.png) no-repeat;">
-        <!-- parallax layers -->
-          <div class="parallax-layer" style="width: 1184px; height: 104px; left: 62.1622%; margin-left: -385.405px;">
-            <img src="/images/p_4_2x.png" alt="" style="position:absolute; top:100px; left:43px;">
-          </div>
-          <div class="parallax-layer" style="width: 1824px; height: 101px; left: 62.1622%; margin-left: -492.946px;">
-            <img src="/images/p_3_2x.png" alt="" style="position:absolute; top:8px; left:57px;">
-          </div>
-          <div class="parallax-layer" style="width: 2397px; height: 254px; left: 62.1622%; margin-left: -634.054px;">
-            <img src="/images/p_2_3_2x.png" alt="" style="position:absolute; top:-6px; left:274px;">
-            <img src="/images/p_2_1_2x.png" alt="" style="position:absolute; top:-6px; left:848px;">
-            <img src="/images/p_2_1b_2x.gif" alt="" style="position:absolute; top:196px; left:916px;">
-            <img src="/images/p_2_2_2x.png" alt="" style="position:absolute; top:-6px; left:1395px;">
-            <img src="/images/p_2_1_2x.png" alt="" style="position:absolute; top:-6px; left:2053px;">
-            <img src="/images/p_2_1b_2x.gif" alt="" style="position:absolute; top:196px; left:2121px;">
-          </div>
-          <div class="parallax-layer" style="width: 2858px; height: 254px; left: 62.1622%; margin-left: -755.892px;">
-            <img src="/images/p_1_2x.png" alt="" style="position:absolute; top:470px; left:4px;">
-          </div>
-          <div class="parallax-layer" style="width: 2858px; height: 254px; left: 62.1622%; margin-left: -755.892px;">
-            <img src="/images/p_1_2_2x.png" alt="" style="position:absolute; top:-1px; left:-1px;">
-          </div>
-      </div>
-
-    </class>
-
-    <div class="chat"></div>
-    <div class="wall-left"></div>
-    <div class="wall-right"></div>
+    <audio id="soundFX" src="/assets/sounds/Choose.mp3" type="audio/mpeg"></audio>
+      
+    <div class="root">
+        <class class="arenas arena1">
+              <div class="start" margin="auto">
+                    <img src="/assets/MKlogo.png">
+                   <button class="button">
+                      Start
+                  </button>
+             </div>
+        <div class="wall-left"></div>
+        <div class="wall-right"></div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
