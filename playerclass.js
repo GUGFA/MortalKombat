@@ -18,16 +18,32 @@ class Player {
     attack = () => console.log(this.name + ' ' + 'Fight...');
 }
 
-export const player1 = new Player({
-    player: 1,
-    name: 'Scorpion',
-    hp: 10,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
-})
+export let player1;
+export let player2;
 
-export const player2 = new Player({
-    player: 2,
-    name: 'Kitana',
-    hp: 10,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
-})
+class Game {
+    getPlayers = async () => {
+        const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/choose').then(res => res.json());
+        return body;
+    }
+
+    start = async () => {
+        const pla1 = JSON.parse(localStorage.getItem('player1'));
+        const pla2 = await this.getPlayers();
+        const p1 = pla1;
+        const p2 = pla2;
+
+        player1 = new Player({
+            ...p1,
+            player:1,
+            rootSelector: 'arenas',
+        });
+        player2 = new Player({
+            ...p2,
+            player:2,
+            rootSelector: 'arenas',
+        });
+    }
+}
+const game = new Game();
+game.start();
