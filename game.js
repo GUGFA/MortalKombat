@@ -152,7 +152,7 @@ export default class Game {
         }
 
         const getHits = async () => {
-            const answer = fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
+            const answer = fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
                 method: 'POST',
                 body: JSON.stringify(submit)
             }).then(res => res.json());
