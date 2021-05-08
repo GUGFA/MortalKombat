@@ -61,7 +61,6 @@ async function init() {
         });
 
         el.addEventListener('click', () => {
-            console.log(item.name);
             playSound(item.name);
 
             //TODO: Мы кладем нашего игрока в localStorage что бы потом на арене его достать.

@@ -79,9 +79,9 @@ export default class Game {
     }
 
     gameStart = () => {
-        Game.$gameStart.addEventListener('click', function () {
+        //  Game.$gameStart.addEventListener('click', function () {
             setTimeout(() => Game.$formFight.style.display = 'flex', 1500);
-            Game.$arenas.removeChild(Game.$gameStart);
+            //  Game.$arenas.removeChild(Game.$gameStart);
             setTimeout(() => document.getElementById("mortalkombat").play(), 1500);
             setTimeout(Game.playSound, 500);
             setTimeout(Game.showBanner, 600);
@@ -91,7 +91,7 @@ export default class Game {
             Game.generateLogs('start', player1, player2);
             Game.eventListener();
 
-        });
+        //  });
     }
 
     static createReloadButton = () => {

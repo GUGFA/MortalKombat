@@ -21,7 +21,7 @@ class Player {
 export let player1;
 export let player2;
 
-class Game {
+class PlayerCreations {
     getPlayers = async () => {
         const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/choose').then(res => res.json());
         return body;
@@ -45,5 +45,5 @@ class Game {
         });
     }
 }
-const game = new Game();
-game.start();
+const playersCreation = new PlayerCreations();
+playersCreation.start();
