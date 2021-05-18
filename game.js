@@ -62,18 +62,32 @@ export default class Game {
         const $character = Game.createElement('div', 'character');
         const $life = Game.createElement('div', 'life');
         const $name = Game.createElement('div', 'name');
-        const $img = Game.createElement('img');
+        const $spriteSheet = Game.createElement('div', 'spriteSheet');
+        //const $img = Game.createElement('img', 'Temp');
 
 
         $life.style.width = (playerObj.hp + '%');
         $name.innerText = playerObj.name;
-        $img.src = playerObj.img;
+        //$img.src = playerObj.img;
+        $spriteSheet.setAttribute("id", 'player' + playerObj.player);
+       
+        // const getElement = (id) => document.getElementById(id);
+        // const spriteSheet = getElement('player' + playerObj.player);
+        // spriteSheet.style.background = "url(./assets/Anim02.png)";
 
+       
         $player.appendChild($progressBar);
         $player.appendChild($character);
         $progressBar.appendChild($life);
         $progressBar.appendChild($name);
-        $character.appendChild($img);
+        //$character.appendChild($img);
+        $character.appendChild($spriteSheet);
+
+        // const getElement = (id) => document.getElementById(id);
+        // const spriteSheet = getElement('Div1');
+        // console.log('##Spritesheet',spriteSheet);
+        // spriteSheet.style.background = "url(http://reactmarathon-api.herokuapp.com/assets/mk/fightingStance/sonya.gif)";
+
 
         return $player;
     }
@@ -88,6 +102,11 @@ export default class Game {
 
             Game.$arenas.appendChild(Game.createPlayer(player1));
             Game.$arenas.appendChild(Game.createPlayer(player2));
+            document.getElementById('player1').style.background=`url(${player1.img})`;
+            document.getElementById('player1').style.backgroundSize="150px 268px";
+            document.getElementById('player2').style.background=`url(${player2.img})`;
+            document.getElementById('player2').style.backgroundSize="150px 268px";
+
             Game.generateLogs('start', player1, player2);
             Game.eventListener();
 

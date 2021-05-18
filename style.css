@@ -421,3 +421,15 @@ input[type=radio]:checked + label > span:hover {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.spriteSheet {
+    height: 100%;
+    background: url("http://reactmarathon-api.herokuapp.com/assets/mk/fightingStance/rain.gif") 0px 0px;
+    background-size: 150px 268px;
+}
+
+.player2 .spriteSheet {
+    transform: scaleX(-1);
+    height: 100%;
+    background-size: 150px 268px;
+}
