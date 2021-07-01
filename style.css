@@ -422,14 +422,25 @@ input[type=radio]:checked + label > span:hover {
     transform: translate(-50%, -50%);
 }
 
-.spriteSheet {
-    height: 100%;
-    background: url("http://reactmarathon-api.herokuapp.com/assets/mk/fightingStance/rain.gif") 0px 0px;
-    background-size: 150px 268px;
+.player1 .spriteSheet {
+    width: 130px;
+    height: 142px;
+    transform: scale(2);
+    display: inline-block;
+    white-space: normal;
+    vertical-align: middle;
+    text-align:center;
+    /* height: 100%; */
+    /* background: url("http://reactmarathon-api.herokuapp.com/assets/mk/fightingStance/rain.gif") 0px 0px; */
+    /* background-size: 300px 268px; */
 }
 
 .player2 .spriteSheet {
     transform: scaleX(-1);
-    height: 100%;
-    background-size: 150px 268px;
+    width: 150px;
+    height: 268px;
+    display: inline-block;
+    white-space: normal;
+    vertical-align: middle;
+    text-align:center;
 }
